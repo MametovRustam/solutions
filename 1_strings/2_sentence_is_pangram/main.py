@@ -9,4 +9,7 @@ pytest ./2_sentence_is_pangram/test.py
 
 
 def is_sentence_is_pangram(sentence: str) -> bool:
-    """Пишите ваш код здесь."""
+    sentence = sentence.lower()
+    alphabet = set('abcdefghijklmnopqrstuvwxyz')
+    sentence_letters = set(sentence)
+    return alphabet.issubset(sentence_letters)
