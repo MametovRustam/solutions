@@ -20,6 +20,28 @@ def get_wrong_article() -> str:
 
 def recover_article() -> str:
     wrong_article = get_wrong_article()
+    reversed_article = wrong_article[::-1]
+    cleaned_article = reversed_article.replace("!", "")
+    sentences = cleaned_article.split('\n')
+    corrected_sentences = []
+    for sentence in sentences:
+        if sentence.startswith('.'):
+            corrected_sentences.append(sentence[1:] + '.')
+        else:
+            corrected_sentences.append(sentence)
 
-    # Ваш код ниже, возвращайте уже отредактированный текст!
-    return wrong_article
+    corrected_article = '\n'.join(corrected_sentences)
+    final_article = corrected_article.replace("WOOF-WOOF", "CAT")
+
+    final_sentences = []
+    for sentence in final_article.split('\n'):
+        if sentence:
+            sentence = sentence.lower().capitalize()
+        final_sentences.append(sentence)
+
+    final_article = '\n'.join(final_sentences)
+
+    final_article = '\n'.join(reversed(final_sentences))
+
+    return final_article
+
