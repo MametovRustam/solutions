@@ -328,7 +328,7 @@ def test_target_file_for_csv_with_header(tmp_path):
     path = os.path.join(tmp_path, "metrics.csv")
     create_file(path)
 
-    with open(path, "w") as file:
+    with open(path, "w", newline='') as file:
         writer = csv.writer(file, delimiter=";")
         writer.writerow(["date", "metric", "value"])
 
