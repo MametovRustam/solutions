@@ -3,7 +3,7 @@ import geocoder
 import sqlite3
 from datetime import datetime, timezone, timedelta
 
-api_key = '3ffabfc1766dc1d96eeb5dfb5c7bca55'
+api_key = "3ffabfc1766dc1d96eeb5dfb5c7bca55"
 
 def convert_datetime(timestamp):
     return datetime.fromtimestamp(timestamp)
