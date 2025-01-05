@@ -79,7 +79,7 @@ def get_csv_statsd(pathname, buffer_limit=10):
     if os.path.getsize(pathname) == 0:
         with open(pathname, "a") as file:
             file.write("Timestamp;Name;Value\n")
-    surv = SaverCsv(pathname)
+    surv  = SaverCsv(pathname)
     statsd = Statsd()
     statsd.set_surv(surv)
     statsd.buffer_limit = buffer_limit

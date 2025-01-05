@@ -8,7 +8,6 @@ from typing import Protocol
 def remove_file(path: str):
     os.remove(path)
 
-
 def create_file(path: str):
     with open(path, "w") as _:
         pass

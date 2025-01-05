@@ -300,7 +300,7 @@ def test_evacuate_protected_incr_metrics_buffer_with_error(
     )
 )
 def test_correct_values(tmp_path, filename: str, initializer, reader: Reader, expected_values: list[Metric]):
-    """Тест проверяет корректность данных, записываемых в файл.
+    """Тест проверяет корректность данных,записываемых в файл.
 
     Дату не проверяю, проверяю только порядок и формат даты.
     """
