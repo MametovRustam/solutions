@@ -11,7 +11,8 @@ Base = declarative_base()
 class Article(Base):
     __tablename__ = 'articles'
     id = Column(Integer, primary_key=True)
-    url = Column(String, unique=True)
+    user_id = Column(Integer)
+    url = Column(String)
 
 TOKEN = "7643621620:AAE_4V78zesCLPve7gMi7kZd7VVOE8i_13k"
 bot = Bot(token=TOKEN)
@@ -36,7 +37,8 @@ async def send_welcome(message: types.Message):
 async def get_random_article(message: types.Message):
     session = Session()
     try:
-        articles = session.query(Article).all()
+        user_id = message.from_user.id
+        articles = session.query(Article).filter(Article.user_id == user_id).all()
         if not articles:
             await message.answer("Вы пока не сохранили ни одной статьи. Если нашли что-то стоящее, я жду!")
             return
@@ -46,6 +48,9 @@ async def get_random_article(message: types.Message):
         session.delete(random_article)
         session.commit()
 
+    except Exception as e:
+        await message.answer("Произошла ошибка при получении статьи.")
+        print(f"Ошибка: {e}")
     finally:
         session.close()
 
@@ -54,12 +59,13 @@ async def save_article(message: types.Message):
     if message.text.startswith(('http://', 'https://')):
         session = Session()
         try:
-            existing = session.query(Article).filter(Article.url == message.text).first()
+            user_id = message.from_user.id
+            existing = session.query(Article).filter(Article.url == message.text, Article.user_id == user_id).first()
             if existing:
                 await message.answer("Упс, вы уже это сохраняли.")
                 return
 
-            article = Article(url=message.text)
+            article = Article(url=message.text, user_id=user_id)
             session.add(article)
             session.commit()
             await message.answer("Сохранил, спасибо!")
